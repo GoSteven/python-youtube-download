@@ -1,4 +1,6 @@
 *.pyc
 *.pyo
 *.swp
+*.flv
+*.mp4
 .DS_Store

@@ -3,6 +3,8 @@ from urllib2 import urlopen
 from urlparse import urlparse, parse_qs
 
 import re
+import sys
+import warnings
 
 YT_BASE_URL = 'http://www.youtube.com/get_video_info'
 
@@ -140,7 +142,8 @@ class YouTube(object):
         if len(result) is 1:
             return result[0]
         else:
-            raise Exception("Multiple videos returned")
+            warnings.warn("Multiple videos returned", DeprecationWarning)
+            return result[0]
 
     def filter(self, extension=None, res=None):
         """
@@ -284,3 +287,11 @@ def safe_filename(text, max_length=200):
     blacklist = re.compile('|'.join(ntfs + paranoid), re.UNICODE)
     filename = blacklist.sub('', text)
     return truncate(filename)
+
+if __name__ == "__main__":
+    yt = YouTube()
+    yt.url = sys.argv[1]
+    print yt.videos
+    print yt.filename
+    video = yt.get()
+    video.download()
