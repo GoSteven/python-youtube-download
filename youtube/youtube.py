@@ -227,11 +227,14 @@ class YouTube(object):
                     #a single empty element, so we'll skip those here.
                     continue
 
-                fmt, extension, resolution = self._extract_fmt(video)
-                filename = "%s.%s" % (self.filename, extension)
+                try:
+                    fmt, extension, resolution = self._extract_fmt(video)
+                    filename = "%s.%s" % (self.filename, extension)
 
-                self.videos.append(Video(extension, resolution, url, filename))
-                self._fmt_values.append(fmt)
+                    self.videos.append(Video(extension, resolution, url, filename))
+                    self._fmt_values.append(fmt)
+                except:
+                    continue
 
     def _extract_fmt(self, text):
         """
@@ -289,9 +292,11 @@ def safe_filename(text, max_length=200):
     return truncate(filename)
 
 if __name__ == "__main__":
-    yt = YouTube()
-    yt.url = sys.argv[1]
-    print yt.videos
-    print yt.filename
-    video = yt.get()
-    video.download()
+    for i in range(1,len(sys.argv)):
+        yt = YouTube()
+        yt.url = sys.argv[i]
+        print yt.videos
+        print yt.filename
+        #video = yt.get()
+        video = yt.get('mp4')
+        video.download()
