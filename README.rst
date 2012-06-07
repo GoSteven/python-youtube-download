@@ -49,3 +49,8 @@ Usage example
     >>> video.download()
     Downloading: Pulp Fiction - Dancing Scene.mp4 Bytes: 37561829
     37561829  [100.00%]
+
+To make download simpler
+-------------
+::
+    python youtube/youtube.py "http://www.youtube.com/watch?v=6bXOOz8mN6U" "http://www.youtube.com/watch?v=ZcIF4cFlCD0"
